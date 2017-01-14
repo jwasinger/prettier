@@ -3,6 +3,7 @@ const babylon = require("babylon");
 const Printer = require("./src/printer").Printer;
 const flowParser = require("flow-parser");
 const comments = require("./src/comments");
+const lineEndings = require("./src/le");
 
 var babylonOptions = {
   sourceType: 'module',
@@ -28,6 +29,10 @@ module.exports = {
     opts = opts || {};
     let ast;
 
+    if(opts.useCRLF) {
+      text = text.replace('\r' + '\n', '\n');
+    }
+
     if(opts.useFlowParser) {
       ast = flowParser.parse(text);
       if(ast.errors.length > 0) {
@@ -40,6 +45,10 @@ module.exports = {
     }
     else {
       ast = babylon.parse(text, babylonOptions);
+    }
+    
+    if(opts.useCLRF) {
+      text = text.replace('\n', '\r' + '\n');
     }
 
     // Interleave comment nodes

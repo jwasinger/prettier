@@ -40,7 +40,8 @@ function format(input) {
     bracketSpacing: argv["bracket-spacing"],
     useFlowParser: argv["flow-parser"],
     singleQuote: argv["single-quote"],
-    trailingComma: argv["trailing-comma"]
+    trailingComma: argv["trailing-comma"],
+    useCRLF: argv["use-crlf"]
   });
 }
 
